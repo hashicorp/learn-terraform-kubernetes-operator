@@ -1,0 +1,6 @@
+host                   = "https://127.0.0.1:55003"
+client_certificate     = ""
+client_key             = ""
+cluster_ca_certificate = ""
+aws_access_key_id      = ""
+aws_secret_access_key  = ""

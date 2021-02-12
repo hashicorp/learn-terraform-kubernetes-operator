@@ -14,11 +14,11 @@ spec:
       moduleOutputName: this_sqs_queue_id
   variables:
     - key: name
-      value: greetings
+      value: greetings.fifo
       sensitive: false
       environmentVariable: false
     - key: fifo_queue
-      value: "false"
+      value: "true"
       sensitive: false
       environmentVariable: false
     - key: AWS_DEFAULT_REGION
