@@ -83,8 +83,8 @@ provider "helm" {
 }
 
 // Terraform Cloud Operator for Kubernetes helm chart
-resource "helm_release" "example" {
-  name       = "terraform-${formatdate("YYYYMMDDhhmmss", timestamp())}"
+resource "helm_release" "operator" {
+  name       = "terraform-operator"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "terraform"
   devel      = true
