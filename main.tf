@@ -49,13 +49,12 @@ resource "kubernetes_namespace" "edu" {
 // Create terraformrc secret for Operator
 resource "kubernetes_secret" "terraformrc" {
   metadata {
-    name = "teraformrc"
+    name = "terraformrc"
     namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
   data = {
-    username = "admin"
-    password = "P4ssw0rd"
+    "credentials" = file("${path.cwd}/credentials")
   }
 }
 
