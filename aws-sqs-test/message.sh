@@ -7,7 +7,7 @@ export SQS_URL=$(eval echo $QUEUE_URL | sed 's/"//g')
 
 echo $SQS_URL
 
-echo "sending a sdfgsdf message to queue $SQS_URL"
+echo "sending a message to queue $SQS_URL"
 aws sqs send-message --queue-url $SQS_URL --message-body "hello world!" --message-group-id "greetings" --message-deduplication-id "world"
 
 echo "reading a message from queue $SQS_URL"
