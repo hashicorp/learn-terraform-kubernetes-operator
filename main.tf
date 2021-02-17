@@ -49,7 +49,7 @@ resource "kubernetes_namespace" "edu" {
 // Create terraformrc secret for Operator
 resource "kubernetes_secret" "terraformrc" {
   metadata {
-    name = "terraformrc"
+    name      = "terraformrc"
     namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
@@ -61,12 +61,12 @@ resource "kubernetes_secret" "terraformrc" {
 // Create workspace secret for Operator
 resource "kubernetes_secret" "workspacesecrets" {
   metadata {
-    name = "workspacesecrets"
+    name      = "workspacesecrets"
     namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
   data = {
-    "AWS_SECRET_ACCESS_KEY" = var.aws_access_key_id
+    "AWS_ACCESS_KEY_ID"     = var.aws_access_key_id
     "AWS_SECRET_ACCESS_KEY" = var.aws_secret_access_key
   }
 }
