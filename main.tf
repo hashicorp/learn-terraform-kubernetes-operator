@@ -86,7 +86,6 @@ resource "helm_release" "operator" {
   name       = "terraform-operator"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "terraform"
-  devel      = true
 
   namespace = kubernetes_namespace.edu.metadata[0].name
 
