@@ -8,10 +8,10 @@ spec:
   secretsMountPath: "/tmp/secrets"
   module:
     source: "terraform-aws-modules/sqs/aws"
-    version: "2.0.0"
+    version: "3.5.0"
   outputs:
     - key: url
-      moduleOutputName: this_sqs_queue_id
+      moduleOutputName: sqs_queue_id
   variables:
     - key: name
       value: greetings.fifo
