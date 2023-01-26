@@ -63,9 +63,9 @@ resource "kubernetes_namespace" "edu" {
 }
 
 // Create terraformrc secret for Operator
-resource "kubernetes_secret" "tfc-operator" {
+resource "kubernetes_secret" "terraformrc" {
   metadata {
-    name      = "tfc-operator"
+    name      = "terraformrc"
     namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
@@ -118,11 +118,11 @@ resource "helm_release" "operator" {
 
   set {
     name  = "operator.watchedNamespaces"
-    value = "{edu}"
+    value = "{${kubernetes_namespace.edu.metadata[0].name}}"
   }
 
   depends_on = [
-    kubernetes_secret.tfc-operator,
+    kubernetes_secret.terraformrc,
     kubernetes_secret.workspacesecrets
   ]
 }
