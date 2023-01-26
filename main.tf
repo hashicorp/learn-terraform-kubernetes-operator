@@ -2,7 +2,12 @@ terraform {
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.16.0"
+      version = "2.17.0"
+    }
+
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.8.0"
     }
   }
 }
@@ -31,6 +36,10 @@ variable "aws_secret_access_key" {
   type = string
 }
 
+variable "tfc_token" {
+  type = string
+}
+
 provider "kubernetes" {
   host = var.host
 
@@ -46,15 +55,22 @@ resource "kubernetes_namespace" "edu" {
   }
 }
 
-// Create terraformrc secret for Operator
-resource "kubernetes_secret" "terraformrc" {
+// Create namespace for application
+resource "kubernetes_namespace" "edu-app" {
   metadata {
-    name      = "terraformrc"
-    namespace = kubernetes_namespace.edu.metadata[0].name
+    name = "edu-app"
+  }
+}
+
+// Create terraformrc secret for Operator
+resource "kubernetes_secret" "tfc-operator" {
+  metadata {
+    name      = "tfc-operator"
+    namespace = kubernetes_namespace.edu-app.metadata[0].name
   }
 
   data = {
-    "credentials" = file("${path.cwd}/credentials")
+    "token" = var.tfc_token
   }
 }
 
@@ -62,7 +78,7 @@ resource "kubernetes_secret" "terraformrc" {
 resource "kubernetes_secret" "workspacesecrets" {
   metadata {
     name      = "workspacesecrets"
-    namespace = kubernetes_namespace.edu.metadata[0].name
+    namespace = kubernetes_namespace.edu-app.metadata[0].name
   }
 
   data = {
@@ -83,14 +99,31 @@ provider "helm" {
 
 // Terraform Cloud Operator for Kubernetes helm chart
 resource "helm_release" "operator" {
-  name       = "terraform-operator"
-  repository = "https://helm.releases.hashicorp.com"
-  chart      = "terraform"
+  name = "terraform-operator"
+  #repository = "https://helm.releases.hashicorp.com"
+  chart   = "oci://public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
+  version = "0.0.4"
 
-  namespace = kubernetes_namespace.edu.metadata[0].name
+  namespace        = kubernetes_namespace.edu.metadata[0].name
+  create_namespace = true
+
+  set {
+    name  = "operator.image.repository"
+    value = "public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
+  }
+
+  set {
+    name  = "operator.image.tag"
+    value = "2.0.0-beta3"
+  }
+
+  set {
+    name  = "operator.watchedNamespaces"
+    value = "{edu-app}"
+  }
 
   depends_on = [
-    kubernetes_secret.terraformrc,
+    kubernetes_secret.tfc-operator,
     kubernetes_secret.workspacesecrets
   ]
 }
