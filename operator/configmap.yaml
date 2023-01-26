@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aws-configuration
+  namespace: edu-app
+data:
+  region: us-east-2
