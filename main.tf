@@ -49,16 +49,16 @@ provider "kubernetes" {
 }
 
 // Create namespace for Operator
-resource "kubernetes_namespace" "edu" {
+resource "kubernetes_namespace" "tfc-operator-system" {
   metadata {
-    name = "edu"
+    name = "tfc-operator-system"
   }
 }
 
 // Create namespace for application
-resource "kubernetes_namespace" "edu-app" {
+resource "kubernetes_namespace" "edu" {
   metadata {
-    name = "edu-app"
+    name = "edu"
   }
 }
 
@@ -66,7 +66,7 @@ resource "kubernetes_namespace" "edu-app" {
 resource "kubernetes_secret" "tfc-operator" {
   metadata {
     name      = "tfc-operator"
-    namespace = kubernetes_namespace.edu-app.metadata[0].name
+    namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
   data = {
@@ -78,7 +78,7 @@ resource "kubernetes_secret" "tfc-operator" {
 resource "kubernetes_secret" "workspacesecrets" {
   metadata {
     name      = "workspacesecrets"
-    namespace = kubernetes_namespace.edu-app.metadata[0].name
+    namespace = kubernetes_namespace.edu.metadata[0].name
   }
 
   data = {
@@ -99,12 +99,11 @@ provider "helm" {
 
 // Terraform Cloud Operator for Kubernetes helm chart
 resource "helm_release" "operator" {
-  name = "terraform-operator"
-  #repository = "https://helm.releases.hashicorp.com"
+  name    = "terraform-operator"
   chart   = "oci://public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
   version = "0.0.4"
 
-  namespace        = kubernetes_namespace.edu.metadata[0].name
+  namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
   create_namespace = true
 
   set {
@@ -119,7 +118,7 @@ resource "helm_release" "operator" {
 
   set {
     name  = "operator.watchedNamespaces"
-    value = "{edu-app}"
+    value = "{edu}"
   }
 
   depends_on = [
