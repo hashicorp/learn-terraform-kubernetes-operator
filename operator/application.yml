@@ -20,7 +20,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: greetings-outputs
-                  key: sqs_queue_id
+                  key: queue_id
             - name: AWS_DEFAULT_REGION
               valueFrom:
                 configMapKeyRef:

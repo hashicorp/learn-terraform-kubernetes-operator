@@ -6,14 +6,14 @@ spec:
   organization: ORGANIZATION_NAME
   token:
     secretKeyRef:
-      name: tfc-operator
+      name: terraformrc
       key: token
   destroyOnDeletion: true
   module:
     source: "terraform-aws-modules/sqs/aws"
-    version: "3.5.0"
+    version: "4.0.1"
   outputs:
-    - name: sqs_queue_id
+    - name: queue_id
   variables:
     - name: name
     - name: fifo_queue
