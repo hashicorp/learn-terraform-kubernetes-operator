@@ -1,0 +1,19 @@
+apiVersion: app.terraform.io/v1alpha2
+kind: AgentPool
+metadata:
+  name: agent-pool-demo
+spec:
+  organization: hashicorp-training
+  token:
+    secretKeyRef:
+      name: terraformrc
+      key: token
+  name: agent-pool-demo
+  agentTokens:
+    - name: agent-pool-demo-token
+  agentDeployment:
+    replicas: 1
+    spec:
+      containers:
+        - name: tfc-agent
+          image: "hashicorp/tfc-agent:1.7.0"

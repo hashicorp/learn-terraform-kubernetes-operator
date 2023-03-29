@@ -101,7 +101,7 @@ provider "helm" {
 resource "helm_release" "operator" {
   name    = "terraform-operator"
   chart   = "oci://public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
-  version = "0.0.4"
+  version = "0.0.6"
 
   namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
   create_namespace = true
@@ -113,7 +113,7 @@ resource "helm_release" "operator" {
 
   set {
     name  = "operator.image.tag"
-    value = "2.0.0-beta3"
+    value = "2.0.0-beta4"
   }
 
   set {
