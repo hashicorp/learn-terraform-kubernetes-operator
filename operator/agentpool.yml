@@ -3,7 +3,7 @@ kind: AgentPool
 metadata:
   name: agent-pool-demo
 spec:
-  organization: hashicorp-training
+  organization: ORGANIZATION_NAME
   token:
     secretKeyRef:
       name: terraformrc
