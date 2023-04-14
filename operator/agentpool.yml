@@ -6,7 +6,7 @@ spec:
   organization: ORGANIZATION_NAME
   token:
     secretKeyRef:
-      name: terraformrc
+      name: tfc-owner
       key: token
   name: agent-pool-demo
   agentTokens:

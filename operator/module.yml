@@ -3,7 +3,7 @@ kind: Module
 metadata:
   name: greetings
 spec:
-  organization: ORGANIZATION_NAME
+  organization: hashicorp-training
   token:
     secretKeyRef:
       name: terraformrc
