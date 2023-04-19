@@ -120,9 +120,4 @@ resource "helm_release" "operator" {
     name  = "operator.watchedNamespaces"
     value = "{${kubernetes_namespace.edu.metadata[0].name}}"
   }
-
-  depends_on = [
-    kubernetes_secret.terraformrc,
-    kubernetes_secret.workspacesecrets
-  ]
 }
