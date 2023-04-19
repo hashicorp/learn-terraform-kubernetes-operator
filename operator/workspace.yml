@@ -15,9 +15,9 @@ spec:
   executionMode: remote
   terraformVariables:
     - name: name
-      value: greetings
+      value: greetings.fifo
     - name: fifo_queue
-      value: "false"
+      value: "true"
   environmentVariables:
     - name: AWS_DEFAULT_REGION
       sensitive: false
