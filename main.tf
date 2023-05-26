@@ -40,6 +40,10 @@ variable "tfc_token" {
   type = string
 }
 
+variable "tfe_address" {
+  type = string
+}
+
 provider "kubernetes" {
   host = var.host
 
@@ -120,4 +124,11 @@ resource "helm_release" "operator" {
     name  = "operator.watchedNamespaces"
     value = "{${kubernetes_namespace.edu.metadata[0].name}}"
   }
+
+  /* Uncomment to deploy to TFE
+  set {
+    name  = "operator.tfeAddress"
+    value = var.tfe_address
+  }
+  */
 }

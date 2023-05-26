@@ -5,3 +5,4 @@ cluster_ca_certificate  = "{{ index (index .clusters 0).cluster "certificate-aut
 aws_access_key_id       = ""
 aws_secret_access_key   = ""
 tfc_token               = ""
+tfe_address             = ""
