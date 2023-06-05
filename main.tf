@@ -117,7 +117,7 @@ resource "helm_release" "operator" {
 
   set {
     name  = "operator.image.tag"
-    value = "2.0.0-beta5"
+    value = "2.0.0-beta6"
   }
 
   set {
