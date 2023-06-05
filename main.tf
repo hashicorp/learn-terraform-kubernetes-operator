@@ -125,7 +125,7 @@ resource "helm_release" "operator" {
     value = "{${kubernetes_namespace.edu.metadata[0].name}}"
   }
 
-  /* Uncomment to deploy to TFE
+  /* Uncomment to deploy to Terraform Enterprise
   set {
     name  = "operator.tfeAddress"
     value = var.tfe_address
