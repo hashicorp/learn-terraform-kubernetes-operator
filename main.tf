@@ -103,22 +103,13 @@ provider "helm" {
 
 // Terraform Cloud Operator for Kubernetes helm chart
 resource "helm_release" "operator" {
-  name    = "terraform-operator"
-  chart   = "oci://public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
-  version = "0.0.7"
+  name       = "terraform-operator"
+  repository = "https://helm.releases.hashicorp.com"
+  chart      = "terraform-cloud-operator"
+  version    = "0.0.7"
 
   namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
   create_namespace = true
-
-  set {
-    name  = "operator.image.repository"
-    value = "public.ecr.aws/t8q4c9g6/terraform-cloud-operator"
-  }
-
-  set {
-    name  = "operator.image.tag"
-    value = "2.0.0-beta6"
-  }
 
   set {
     name  = "operator.watchedNamespaces"
