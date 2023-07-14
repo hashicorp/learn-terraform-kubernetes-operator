@@ -17,3 +17,10 @@ spec:
       containers:
         - name: tfc-agent
           image: "hashicorp/tfc-agent:1.7.0"
+  # Enable autoscaling
+  # autoscaling:
+  #   minReplicas: 1
+  #   maxReplicas: 3
+  #   cooldownPeriodSeconds: 30
+  #   targetWorkspaces:
+  #   - name: greetings
