@@ -1,0 +1,48 @@
+apiVersion: app.terraform.io/v1alpha2
+kind: Workspace
+metadata:
+  name: greetings
+spec:
+  organization: ORGANIZATION_NAME
+  token:
+    secretKeyRef:
+      name: terraformrc
+      key: token
+  name: greetings
+  description: Kubernetes Operator Automated Workspace
+  applyMethod: auto
+  terraformVersion: 1.3.7
+  terraformVariables:
+    - name: name
+      value: greetings.fifo
+    - name: fifo_queue
+      value: "true"
+  environmentVariables:
+    - name: AWS_DEFAULT_REGION
+      sensitive: false
+      valueFrom:
+        configMapKeyRef:
+          name: aws-configuration
+          key: region
+    - name: AWS_ACCESS_KEY_ID
+      sensitive: false
+      valueFrom:
+        secretKeyRef:
+          name: workspacesecrets
+          key: AWS_ACCESS_KEY_ID
+    - name: AWS_SECRET_ACCESS_KEY
+      sensitive: true
+      valueFrom:
+        secretKeyRef:
+          name: workspacesecrets
+          key: AWS_SECRET_ACCESS_KEY
+    - name: CONFIRM_DESTROY
+      sensitive: false
+      value: "1"
+  tags:
+    - demo
+  executionMode: remote
+  # Configure the workspace to use the agent pool
+  # executionMode: agent
+  # agentPool:
+  #   name: agent-pool-demo

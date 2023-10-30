@@ -1,0 +1,8 @@
+host                    = "{{ (index .clusters 0).cluster.server }}"
+client_certificate      = "{{ index (index .users 0).user "client-certificate-data" }}"
+client_key              = "{{ index (index .users 0).user "client-key-data" }}"
+cluster_ca_certificate  = "{{ index (index .clusters 0).cluster "certificate-authority-data" }}"
+aws_access_key_id       = ""
+aws_secret_access_key   = ""
+tfc_token               = ""
+tfe_address             = ""
