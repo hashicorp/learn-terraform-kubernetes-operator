@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tfc-agent
-          image: "hashicorp/tfc-agent:1.7.0"
+          image: "hashicorp/tfc-agent:1.13.1"
   # Enable autoscaling
   # autoscaling:
   #   minReplicas: 0
