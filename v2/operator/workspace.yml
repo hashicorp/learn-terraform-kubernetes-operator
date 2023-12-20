@@ -7,6 +7,8 @@ metadata:
   name: greetings
 spec:
   organization: ORGANIZATION_NAME
+  project:
+    name: greetings-project
   token:
     secretKeyRef:
       name: terraformrc
