@@ -1,0 +1,14 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
+apiVersion: app.terraform.io/v1alpha2
+kind: Project
+metadata:
+  name: greetings-project
+spec:
+  organization: ORGANIZATION_NAME
+  token:
+    secretKeyRef:
+      name: terraformrc
+      key: token
+  name: greetings-project
