@@ -5,12 +5,12 @@ terraform {
   required_providers {
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "2.23.0"
+      version = "2.27.0"
     }
 
     helm = {
       source  = "hashicorp/helm"
-      version = "2.11.0"
+      version = "2.12.1"
     }
   }
 }
@@ -109,7 +109,7 @@ resource "helm_release" "operator" {
   name       = "terraform-operator"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "terraform-cloud-operator"
-  version    = "2.2.0"
+  version    = "2.3.0"
 
   namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
   create_namespace = true
