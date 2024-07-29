@@ -109,7 +109,7 @@ resource "helm_release" "operator" {
   name       = "terraform-operator"
   repository = "https://helm.releases.hashicorp.com"
   chart      = "terraform-cloud-operator"
-  version    = "2.3.0"
+  version    = "2.6.0"
 
   namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
   create_namespace = true
