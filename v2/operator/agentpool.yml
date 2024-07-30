@@ -24,6 +24,8 @@ spec:
   # autoscaling:
   #   minReplicas: 0
   #   maxReplicas: 1
-  #   cooldownPeriodSeconds: 30
   #   targetWorkspaces:
   #   - name: greetings
+  #   cooldownPeriod:
+  #     scaleUpSeconds: 30
+  #     scaleDownSeconds: 30
