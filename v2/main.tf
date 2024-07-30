@@ -108,7 +108,7 @@ provider "helm" {
 resource "helm_release" "operator" {
   name       = "terraform-operator"
   repository = "https://helm.releases.hashicorp.com"
-  chart      = "hcp-teraform-operator"
+  chart      = "hcp-terraform-operator"
   version    = "2.6.0"
 
   namespace        = kubernetes_namespace.tfc-operator-system.metadata[0].name
